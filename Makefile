@@ -28,7 +28,7 @@ run: os.iso
 
 %.o: %.c
 	$(CC) $(CFLAGS) $< -o $@
-%.o: %.s
+%.o: %.asm
 	$(AS) $(ASFLAGS) $< -o $@
 clean:
 	rm -rf *.o kernel.elf os.iso
