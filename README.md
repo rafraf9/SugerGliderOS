@@ -1,5 +1,5 @@
 # SugerGliderOS
-This is a simple OS, i made for learning
+This is a simple OS, i made for learning following the little book of osdev tutorial: https://littleosbook.github.io/
 # Roadmap
 - [ ] Boot up the OS
 - [ ] Print Welcome Message
