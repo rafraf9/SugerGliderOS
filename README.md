@@ -2,7 +2,7 @@
 This is a simple OS, i made for learning following the little book of osdev tutorial: https://littleosbook.github.io/
 # Roadmap
 - [X] Boot up the OS
-- [ ] Print Welcome Message
+- [X] Print Welcome Message
 - [ ] Setup file system for kernel.
 - [ ] Map the memory
 - [ ] Check cpu features
