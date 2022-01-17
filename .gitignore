@@ -2,3 +2,4 @@ bochslog.txt
 *.o
 kernel.elf
 os.iso
+.vscode/

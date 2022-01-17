@@ -3,6 +3,11 @@ ENTRY(loader)   /*the name of the entry label*/
 SECTIONS {
     . = 0x00100000;
 
+    .__mbHeader ALIGN (0x1000) : 
+    {
+      *(.__mbHeader)
+   }
+
     .text ALIGN (0x1000) : 
     {       /*align the 4kb*/
         *(.text)
@@ -17,7 +22,7 @@ SECTIONS {
     }
 
     .bss ALIGN (0x1000) : {
-        *(.COMMON)
+        *(COMMON)
         *(.bss)
     }
 }
