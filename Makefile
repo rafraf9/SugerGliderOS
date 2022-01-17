@@ -1,4 +1,5 @@
 OBJECTS = loader.o kmain.o io.o fb_driver.o serial_driver.o print_string.o string.o logging.o
+PRE_OBJECTS = $(addprefix bin/,$(OBJECTS))
 CC = gcc
 CFLAGS = -m32 -nostdlib -nostdinc -fno-builtin -fno-stack-protector \
         -nostartfiles -nodefaultlibs -Wall -Wextra -Werror -c
@@ -8,8 +9,8 @@ ASFLAGS = -f elf
 
 all: kernel.elf
 
-kernel.elf: $(OBJECTS)
-	ld $(LDFLAGS) $(OBJECTS) -o kernel.elf
+kernel.elf: $(PRE_OBJECTS)
+	ld $(LDFLAGS) $(PRE_OBJECTS) -o kernel.elf
 
 os.iso: kernel.elf
 	cp kernel.elf iso/boot/kernel.elf
@@ -26,9 +27,9 @@ os.iso: kernel.elf
 run: os.iso
 	bochs -f bochsrc.txt -q
 
-%.o: %.c
+bin/%.o: src/%.c
 	$(CC) $(CFLAGS) $< -o $@
-%.o: %.asm
+bin/%.o: src/%.asm
 	$(AS) $(ASFLAGS) $< -o $@
 clean:
-	rm -rf *.o kernel.elf os.iso
+	rm -rf bin/*.o kernel.elf os.iso
