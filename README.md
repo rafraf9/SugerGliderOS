@@ -3,14 +3,16 @@ This is a simple OS, i made for learning following the little book of osdev tuto
 # Roadmap
 - [X] Boot up the OS
 - [X] Print Welcome Message
-- [ ] Setup file system for kernel.
-- [ ] Map the memory
-- [ ] Check cpu features
-- [ ] Move to 64 bit long mode
-- [ ] Setup c compilation
-- [ ] Setup paging
+- [ ] Load the GDT
 - [ ] Setup interrupts
+- [ ] Setup keyboard
+- [ ] Load external program
+- [ ] Execute external program
+- [ ] Setup paging
+- [ ] Setup memory allocation
 - [ ] Setup usermode
-- [ ] Setup multitasking
-- [ ] Graphics?
+- [ ] Get a filesystem working
+- [ ] Virual file system
+- [ ] Implement syscalls
+- [ ] Implement multitasking
 
