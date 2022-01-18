@@ -13,7 +13,6 @@ section .text:
 ;       [  esp  ] returns address
 
 load_gdt_asm:
-    xchg bx, bx
     mov eax, [esp + 4]  ;load the base address
     mov [gdt_des + 2], eax
     mov ax, [esp + 8]   ;load the limit
