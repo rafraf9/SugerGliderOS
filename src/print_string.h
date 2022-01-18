@@ -36,6 +36,8 @@ int putchar(int c);
  */
 int putcharw(int c, write_func write);
 
+//Credit to User:A22347 for the printf example that was sloghtly modified for this.
+
 /** vprintf:
  *  Sends a formatted string to a driver
  *  
