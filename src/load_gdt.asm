@@ -23,7 +23,7 @@ load_gdt_asm:
 
     jmp 0x08:.reset_cs  ;reload code segment register
 .reset_cs:
-    ;reload the data registers
+    ;reload the data segment registers
     mov ax, 0x10
     mov dx, ax
     mov es, ax

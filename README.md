@@ -3,7 +3,7 @@ This is a simple OS, i made for learning following the little book of osdev tuto
 # Roadmap
 - [X] Boot up the OS
 - [X] Print Welcome Message
-- [ ] Load the GDT
+- [X] Load the GDT
 - [ ] Setup interrupts
 - [ ] Setup keyboard
 - [ ] Load external program
