@@ -1,5 +1,5 @@
 OBJECTS = loader.o kmain.o io.o fb_driver.o serial_driver.o print_string.o string.o logging.o \
-        gdt.o load_gdt.o idt.o idt_asm.o
+        gdt.o load_gdt.o idt.o idt_asm.o pic.o keyboard_driver.o
 PRE_OBJECTS = $(addprefix bin/,$(OBJECTS))
 CC = gcc
 CFLAGS = -m32 -nostdlib -nostdinc -fno-builtin -fno-stack-protector \

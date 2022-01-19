@@ -118,6 +118,7 @@ int fb_write(const char* buf, unsigned int len)
             cursor_pos = (cursor_pos + 4) - (cursor_pos % 4);
         else if(buf[i] == '\n')
             cursor_pos = (cursor_pos + VGA_WIDTH) - (cursor_pos % VGA_WIDTH);
+        else if(buf[i] == '\b');
         else
         {
             fb_write_cell(cursor_pos * 2, buf[i], FB_WHITE, FB_BLACK);

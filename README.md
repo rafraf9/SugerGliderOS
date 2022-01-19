@@ -5,7 +5,7 @@ This is a simple OS, i made for learning following the little book of osdev tuto
 - [X] Print Welcome Message
 - [X] Load the GDT
 - [X] Setup interrupts
-- [ ] Setup keyboard
+- [X] Setup keyboard
 - [ ] Load external program
 - [ ] Execute external program
 - [ ] Setup paging

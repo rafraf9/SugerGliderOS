@@ -93,11 +93,28 @@ no_error_code_interrupt_handler 28
 no_error_code_interrupt_handler 29
 error_code_interrupt_handler    30
 no_error_code_interrupt_handler 31
+;IRQS
+no_error_code_interrupt_handler 32
+no_error_code_interrupt_handler 33
+no_error_code_interrupt_handler 34
+no_error_code_interrupt_handler 35
+no_error_code_interrupt_handler 36
+no_error_code_interrupt_handler 37
+no_error_code_interrupt_handler 38
+no_error_code_interrupt_handler 39
+no_error_code_interrupt_handler 40
+no_error_code_interrupt_handler 41
+no_error_code_interrupt_handler 42
+no_error_code_interrupt_handler 43
+no_error_code_interrupt_handler 44
+no_error_code_interrupt_handler 45
+no_error_code_interrupt_handler 46
+no_error_code_interrupt_handler 47
 
 section .data
 isr_stub_table:     ;list of all the interrupt handler addresses
 %assign i 0
-%rep 32
+%rep 48
     dd interrupt_handler_%+i
 %assign i i+1
 %endrep

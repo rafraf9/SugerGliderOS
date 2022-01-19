@@ -11,10 +11,23 @@ outb:
 
 global inb
 ;inb - gets a byte from an I/O port
-;stack: [esp + 4] the I/O port
-;       [esp    ] the return address
+;stack: [esp + 4] The I/O port
+;       [esp    ] The return address
 inb:
     mov dx, [esp + 4]
     xor eax, eax
     in al, dx
+    ret
+
+global cli
+;cli - disable the interrupts
+;stack: - [esp] The return address
+cli:
+    cli
+    ret
+global sti
+;sti - enable interrupts
+;stack - [esp] The return address
+sti:
+    sti
     ret

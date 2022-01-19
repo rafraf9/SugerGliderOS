@@ -3,6 +3,8 @@
 #include "gdt.h"
 #include "breakpoint.h"
 #include "idt.h"
+#include "io.h"
+#include "keyboard_driver.h"
 
 static GDT_entry gdt_entries[2];
 
@@ -26,6 +28,10 @@ void kmain(void)
 
     printf("Succesfully loaded new IDT\n");
     log_info("Succesfully loaded IDT");
+
+    init_keyboard();
+
+    sti();
 
     while(1);
 }

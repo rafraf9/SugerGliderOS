@@ -17,4 +17,14 @@ void outb(unsigned short port, unsigned char data);
 */
 unsigned char inb(unsigned short port);
 
+/** cli
+ *  Disable the interrupts.
+ */
+void cli(void);
+
+/**sti
+ * Enable interrupts.
+ */
+void sti(void);
+
 #endif /*INCLUDE_IO_H*/

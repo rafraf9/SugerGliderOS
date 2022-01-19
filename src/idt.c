@@ -1,6 +1,10 @@
 #include "idt.h"
 #include "print_string.h"
 #include "breakpoint.h"
+#include "pic.h"
+
+#define IRQ_START   0X20
+#define IRQ_SIZE    0x10
 
 typedef struct
 {
@@ -45,6 +49,9 @@ static IDTR idtr;                   //The idt table register
 __attribute__((aligned(0x10)))      //List of IDT entries, aligned for performance      
 static IDT_entry idt[256];
 
+//List of IRQ handlers
+static irq_handler irq_handlers[256];
+
 /** load_idt_asm:
  *  Calls assembly code to load the IDT
  * 
@@ -83,6 +90,17 @@ void idt_init(void)
         idt_set_descriptor(i, isr_stub_table[i], 0x8E);        //Set to kernel level interrupt
     }
 
+    //Initialize the PIC
+    pic_init(IRQ_START, IRQ_START + 7);
+    irq_set_mask(0);        //For now, disable the timer.
+
+    //Set the IRQs
+    for(unsigned char i = IRQ_START; i < IRQ_START + IRQ_SIZE; ++i)
+    {
+        idt_set_descriptor(i, isr_stub_table[i], 0x8E);
+        pic_ack(i - IRQ_START); //Just in case it has a "unACKed" IRQ from the bootloader.
+    }
+
     load_idt_asm(idtr);     //Load the new IDT
 }
 
@@ -93,13 +111,36 @@ void idt_init(void)
  *  @param stack The original stack state
  *  @param interrupt The interrupt number 
  */
-void interrupt_handler(cpu_state regs, unsigned int interrupt, stack_state stack)
+void interrupt_handler(__attribute__((unused)) cpu_state regs, unsigned int interrupt, 
+    __attribute__((unused)) stack_state stack)
 {
-    printf("Recieved interrupt %d\n", interrupt);
-    printf("registers: %d %d %d %d %d %d %d %d\n", regs.eax, regs.ebx, 
-    regs.ecx, regs.edx, regs.esi, regs.edi, regs.esp, regs.ebp);
-    printf("error code: %d\n", stack.error_code);
-    printf("address %d:%d\n", stack.cs, stack.eip);
-    printf("eflags: %d\n", stack.eflags);
-    BREAK;
+    if(interrupt >= IRQ_START && interrupt < IRQ_START + IRQ_SIZE)
+    {
+        pic_ack(interrupt - IRQ_START);
+        if(irq_handlers[interrupt - IRQ_START])
+        {
+            irq_handlers[interrupt - IRQ_START](interrupt - IRQ_START);
+        }
+    }
+}
+
+/** register_irq_handler:
+ *  Register an IRQ handler to a specific interrupt
+ *  
+ *  @param irq The IRQ number to register the handler
+ *  @param handler The IRQ handler to be registered
+ */
+void register_irq_handler(unsigned char irq, irq_handler handler)
+{
+    irq_handlers[irq] = handler;
+}
+
+/** unregister_irq_handler
+ *  Unregister an IRQ handler to a specific interrupt
+ * 
+ *  @param irq The IRQ number to unregister
+ */
+void unregister_irq_handler(unsigned char irq)
+{
+    irq_handlers[irq] = 0x0;
 }
